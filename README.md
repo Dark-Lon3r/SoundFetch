@@ -19,6 +19,7 @@ SoundFetch предоставляет удобный способ наслажд
 ### Ручная установка:
 
 ```pip install bs4```
+
 ```pip install requests```
 
 #### Запуск:
