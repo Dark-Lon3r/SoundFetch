@@ -9,28 +9,17 @@ HEADER = {
 def sound_cloud_downdload(link_sound_cloud):
     data_link = {'value': link_sound_cloud}
 
-    try:
-        r = requests.post('https://www.klickaud.co/download.php',
-                          data=data_link, headers=HEADER)
-        soup = BS(r.text, 'html.parser')
+    r = requests.post('https://www.klickaud.co/download.php', data=data_link, headers=HEADER)
+    soup = BS(r.text, 'html.parser')
 
-        titles = soup.find('td', class_='no-mobile1')
-        name = soup.find_all('td', class_='small-10 columns')[1].text.strip()
-        link_music = titles.find('a').get('href')
-        photo_link = soup.find('td', class_='small-10 columns')
+    name = soup.find_all('td', class_='small-10 columns')[1].get_text().strip()
+    link_music = soup.find('tr', class_ = 'mobile-grid').find_all('td')[1].find('a').get('href')
+    photo_link = soup.find_all('td', class_='small-10 columns')[0].find('img').get('src')
 
-        # Music
-        r = requests.get(link_music)
-        with open(f"{name}.mp3", "wb") as file:
-            file.write(r.content)
-
-        # Photo
-        r_photo = requests.get(photo_link.find('img')['src'])
-        with open(f"{name}.jpg", "wb") as file_photo:
-            file_photo.write(r_photo.content)
-
-    except:
-        print('😕Error!')
+    #Music
+    r = requests.get(link_music)
+    with open(f"{name}.mp3", "wb") as file:
+        file.write(r.content)
 
 
 def tiktok_download(link):
