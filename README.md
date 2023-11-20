@@ -24,6 +24,8 @@ SoundFetch предоставляет удобный способ наслажд
 
 ```pip install requests```
 
+```pip install colorama```
+
 #### Запуск:
 
 ```python3 main.py```
